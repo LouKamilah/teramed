@@ -27,6 +27,7 @@
 </head>
 
 <body class="inter antialiased bg-[#0d0e11] text-white">
+
   <div id="header-placeholder"></div>
 
   <main id="inicio">
@@ -263,12 +264,11 @@
           </h2>
           <p class="mt-5 max-w-2xl text-sm leading-7 text-gray-600">
             Nuestro objetivo es simplificar el acceso a insumos esenciales
-            para que tengas a mano lo que usas todos los días. Aquí encuentras
-            una selección breve, ordenada y lista para pedir.
+            para que tengas a mano lo que usas todos los días.
           </p>
           <div class="mt-8 grid gap-4 sm:grid-cols-3">
             <div class="rounded-2xl bg-white p-4 shadow-sm">
-              <p class="text-2xl font-semibold">+20</p>
+              <p class="text-2xl font-semibold">+100</p>
               <p class="mt-1 text-sm text-gray-600">
                 Productos listos para tu rutina
               </p>
@@ -332,17 +332,43 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    function cargarHTML(url, idElemento) {
+    function cargarHTML(url, idElemento, callback, metodo = "innerHTML") {
       fetch(url)
         .then((res) => res.text())
         .then((data) => {
-          document.getElementById(idElemento).innerHTML = data;
+          document.getElementById(idElemento)[metodo] = data;
+          if (callback) callback();
         });
     }
 
-    cargarHTML("header.html", "header-placeholder");
-    cargarHTML("footer.html", "footer-placeholder");
+    cargarHTML("components/header.html", "header-placeholder", initMenu, "outerHTML");
+    cargarHTML("components/footer.html", "footer-placeholder", null, "outerHTML");
+
+    function initMenu() {
+      const toggleBtn = document.getElementById("menu-toggle-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.getElementById("menu-icon");
+
+      toggleBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        const isOpen = !mobileMenu.classList.contains("hidden");
+
+        toggleBtn.setAttribute("aria-expanded", isOpen);
+        menuIcon.classList.toggle("bi-list", !isOpen);
+        menuIcon.classList.toggle("bi-x", isOpen);
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          menuIcon.classList.remove("bi-x");
+          menuIcon.classList.add("bi-list");
+          toggleBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
   </script>
+
 </body>
 
 </html>

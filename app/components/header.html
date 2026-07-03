@@ -1,0 +1,37 @@
+<header class="sticky top-0 z-50 border-b border-white/10 bg-[#0d0e11]/90 backdrop-blur px-8 py-4">
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 text-white">
+    <a href="#inicio" class="flex items-center gap-3 font-medium tracking-wide">
+      <img src="./src/img/logo.png" class="h-9 w-9 rounded-xl bg-white/5 p-1" alt="TeraMED Logo">
+      <span>TeraMED</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-sm text-white/80">
+      <a href="#inicio" class="hover:text-white">Inicio</a>
+      <a href="#catalogo" class="hover:text-white">Catálogo</a>
+      <a href="#nosotros" class="hover:text-white">Nosotros</a>
+      <a href="#contacto" class="hover:text-white">Contacto</a>
+    </nav>
+
+    <a href="#catalogo"
+      class="hidden md:inline-flex rounded-xl border border-[#d86f6f]/40 bg-[#d86f6f] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#e89a9a]">
+      Ver productos
+    </a>
+
+    <button id="menu-toggle-btn"
+      class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/15 p-2 text-white"
+      aria-label="Abrir menú" aria-expanded="false">
+      <i id="menu-icon" class="bi bi-list text-2xl"></i>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="md:hidden mt-4 flex flex-col gap-3 border-t border-white/10 pt-4 text-sm text-white/80">
+    <a href="#inicio" class="hover:text-white">Inicio</a>
+    <a href="#catalogo" class="hover:text-white">Catálogo</a>
+    <a href="#nosotros" class="hover:text-white">Nosotros</a>
+    <a href="#contacto" class="hover:text-white">Contacto</a>
+    <a href="#catalogo"
+      class="rounded-xl border border-[#d86f6f]/40 bg-[#d86f6f] px-4 py-2 text-center font-semibold text-black transition hover:bg-[#e89a9a]">
+      Ver productos
+    </a>
+  </nav>
+</header>
