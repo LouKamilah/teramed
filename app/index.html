@@ -8,6 +8,9 @@
   <link href="./src/css/output.css" rel="stylesheet" />
   <!--alpine js-->
   <script src="//unpkg.com/alpinejs" defer=""></script>
+  <!--supabase-->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="./src/js/catalogo.js" defer></script>
   <!--FAV ICON-->
   <link rel="icon" type="image/x-icon" href="./src/img/logo.png" />
   <!-- Bootstrap Icons -->
@@ -27,7 +30,6 @@
 </head>
 
 <body class="inter antialiased bg-[#0d0e11] text-white">
-
   <div id="header-placeholder"></div>
 
   <main id="inicio">
@@ -113,7 +115,7 @@
       </div>
     </section>
 
-    <section id="catalogo" class="px-8 py-20">
+    <section id="catalogo" class="px-8 py-20" x-data="catalogo">
       <div class="mx-auto w-full max-w-7xl">
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -130,124 +132,43 @@
           </p>
         </div>
 
-        <div class="mt-8 flex flex-wrap gap-3 text-sm text-white/75">
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Protección personal</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Curación</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Consumo diario</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Material desechable</span>
+        <div class="mt-8 flex flex-wrap gap-3 text-sm">
+          <button @click="categoriaActiva = 'todos'"
+            :class="categoriaActiva === 'todos' ? 'bg-[#d86f6f] text-black' : 'border border-white/10 bg-white/5 text-white/75'"
+            class="rounded-full px-4 py-2 transition">
+            Todos
+          </button>
+          <template x-for="cat in categorias" :key="cat.id">
+            <button @click="categoriaActiva = cat.slug"
+              :class="categoriaActiva === cat.slug ? 'bg-[#d86f6f] text-black' : 'border border-white/10 bg-white/5 text-white/75'"
+              class="rounded-full px-4 py-2 transition" x-text="cat.nombre"></button>
+          </template>
         </div>
 
+        <p x-show="cargando" class="mt-10 text-sm text-white/60">Cargando productos…</p>
+        <p x-show="error" x-text="error" class="mt-10 text-sm text-[#d86f6f]"></p>
+        <p x-show="!cargando && !error && productosFiltrados.length === 0" class="mt-10 text-sm text-white/60">
+          No hay productos en esta categoría por ahora.
+        </p>
+
         <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <article
-            class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full bg-[#d86f6f] px-3 py-1 text-xs font-semibold text-black">Más pedido</span>
-              <span class="text-sm text-white/60">Caja x 100</span>
-            </div>
-            <h3 class="mt-5 text-2xl font-semibold">Guantes de nitrilo</h3>
-            <p class="mt-3 text-sm leading-6 text-white/65">
-              Protección para higiene, limpieza y manejo de materiales con
-              ajuste cómodo y alta resistencia.
-            </p>
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
-              <a href="#contacto"
-                class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
-            </div>
-          </article>
-
-          <article
-            class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Protección</span>
-              <span class="text-sm text-white/60">Paquete x 50</span>
-            </div>
-            <h3 class="mt-5 text-2xl font-semibold">
-              Mascarillas quirúrgicas
-            </h3>
-            <p class="mt-3 text-sm leading-6 text-white/65">
-              Material de uso frecuente para tu protección diaria y el
-              abastecimiento continuo del hogar.
-            </p>
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
-              <a href="#contacto"
-                class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
-            </div>
-          </article>
-
-          <article
-            class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full bg-[#d86f6f] px-3 py-1 text-xs font-semibold text-black">Curación</span>
-              <span class="text-sm text-gray-500">Caja x 10</span>
-            </div>
-            <h3 class="mt-5 text-2xl font-semibold">Gasas estériles</h3>
-            <p class="mt-3 text-sm leading-6 text-white/65">
-              Apoyo esencial para pequeñas curaciones, limpieza de heridas y
-              cuidado básico en casa.
-            </p>
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
-              <a href="#contacto"
-                class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
-            </div>
-          </article>
-
-          <article
-            class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Desechable</span>
-              <span class="text-sm text-white/60">Caja x 100</span>
-            </div>
-            <h3 class="mt-5 text-2xl font-semibold">Jeringas descartables</h3>
-            <p class="mt-3 text-sm leading-6 text-white/65">
-              Solución práctica para higiene, aplicación de líquidos y
-              abastecimiento de rutina.
-            </p>
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
-              <a href="#contacto"
-                class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
-            </div>
-          </article>
-
-          <article
-            class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full bg-[#d86f6f] px-3 py-1 text-xs font-semibold text-black">Control</span>
-              <span class="text-sm text-white/60">Unidad</span>
-            </div>
-            <h3 class="mt-5 text-2xl font-semibold">Termómetros digitales</h3>
-            <p class="mt-3 text-sm leading-6 text-white/65">
-              Lectura rápida para seguimiento básico de temperatura en casa.
-            </p>
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
-              <a href="#contacto"
-                class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
-            </div>
-          </article>
-
-          <article
-            class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Higiene</span>
-              <span class="text-sm text-white/60">Paquete x 12</span>
-            </div>
-            <h3 class="mt-5 text-2xl font-semibold">
-              Alcohol y soluciones antisépticas
-            </h3>
-            <p class="mt-3 text-sm leading-6 text-white/65">
-              Esenciales para limpieza de superficies, antisepsia y
-              abastecimiento de alta rotación.
-            </p>
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
-              <a href="#contacto"
-                class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
-            </div>
-          </article>
+          <template x-for="(producto, index) in productosFiltrados" :key="producto.id">
+            <article
+              class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 transition hover:-translate-y-1 hover:bg-white/7">
+              <div class="flex items-center justify-between">
+                <span :class="index % 2 === 0 ? 'bg-[#d86f6f] text-black' : 'bg-white/10 text-white'"
+                  class="rounded-full px-3 py-1 text-xs font-semibold" x-text="producto.etiqueta"></span>
+                <span class="text-sm text-white/60" x-text="producto.presentacion"></span>
+              </div>
+              <h3 class="mt-5 text-2xl font-semibold" x-text="producto.nombre"></h3>
+              <p class="mt-3 text-sm leading-6 text-white/65" x-text="producto.descripcion"></p>
+              <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+                <span class="text-lg font-semibold text-[#d86f6f]">Cotizar</span>
+                <a :href="linkWhatsapp(producto.nombre)" target="_blank" rel="noopener"
+                  class="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/5">Solicitar</a>
+              </div>
+            </article>
+          </template>
         </div>
       </div>
     </section>
@@ -264,11 +185,12 @@
           </h2>
           <p class="mt-5 max-w-2xl text-sm leading-7 text-gray-600">
             Nuestro objetivo es simplificar el acceso a insumos esenciales
-            para que tengas a mano lo que usas todos los días.
+            para que tengas a mano lo que usas todos los días. Aquí encuentras
+            una selección breve, ordenada y lista para pedir.
           </p>
           <div class="mt-8 grid gap-4 sm:grid-cols-3">
             <div class="rounded-2xl bg-white p-4 shadow-sm">
-              <p class="text-2xl font-semibold">+100</p>
+              <p class="text-2xl font-semibold">+20</p>
               <p class="mt-1 text-sm text-gray-600">
                 Productos listos para tu rutina
               </p>
@@ -368,7 +290,6 @@
       });
     }
   </script>
-
 </body>
 
 </html>
