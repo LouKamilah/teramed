@@ -1,0 +1,14 @@
+{
+  "name": "TeraMED",
+  "short_name": "TeraMED",
+  "display": "standalone",
+  "background_color": "#0d0e11",
+  "theme_color": "#d86f6f",
+  "icons": [
+    {
+      "src": "/src/img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

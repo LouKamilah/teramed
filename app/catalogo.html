@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TeraMED | Catálogo de Insumos Médicos</title>
+    <title>
+
+        Catálogo de Insumos Médicos | TeraMED
+
+    </title>
+    <meta name="description"
+        content="Explora el catálogo completo de insumos médicos de TeraMED. Cotiza directamente por WhatsApp.">
     <link href="./src/css/output.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -124,7 +130,7 @@
                         class="rounded-3xl bg-white/5 border border-white/10 overflow-hidden transition hover:scale-[1.02]">
 
                         <img :src="producto.imagen_url || './src/img/no-image.png'" :alt="producto.nombre"
-                            class="h-60 w-full object-cover">
+                            class="h-60 w-full object-cover" loading="lazy" decoding="async">
 
                         <div class="p-5">
 

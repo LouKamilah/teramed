@@ -4,7 +4,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TeraMED | Catálogo de Insumos Médicos</title>
+  <title>TeraMED | Insumos Médicos, Material Clínico y Cotizaciones en Chile</title>
+  <meta name="description"
+    content="Compra insumos médicos, material clínico, guantes, mascarillas, jeringas, gasas y productos para hospitales, clínicas y particulares. Cotiza por WhatsApp con TeraMED.">
+  <meta name="keywords"
+    content="insumos médicos, material clínico, mascarillas, guantes de nitrilo, jeringas, gasas, hospital, clínica, Chile">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://teramed.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <meta property="og:title" content="TeraMED | Insumos Médicos">
+
+  <meta property="og:description" content="Catálogo de insumos médicos con cotización por WhatsApp.">
+
+  <meta property="og:image" content="https://teramed.netlify.app/src/img/logo.png">
+
+  <meta property="og:url" content="https://teramed.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
   <link href="./src/css/output.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -13,6 +29,7 @@
   <script src="./src/js/catalogo.js"></script>
   <!--FAV ICON-->
   <link rel="icon" type="image/x-icon" href="./src/img/logo.png" />
+  <link rel="apple-touch-icon" href="/src/img/logo.png">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +44,26 @@
       font-style: normal;
     }
   </style>
+
+  <script type="application/ld+json">
+
+{
+"@context":"https://schema.org",
+"@type":"MedicalBusiness",
+
+"name":"TeraMED",
+
+"url":"https://teramed.netlify.app",
+
+"telephone":"+56934009434",
+
+"logo":"https://teramed.netlify.app/src/img/logo.png",
+
+"sameAs":[]
+}
+
+</script>
+
 </head>
 
 <body class="inter antialiased bg-[#0d0e11] text-white">
@@ -44,7 +81,7 @@
             Insumos médicos para ti
           </span>
           <h1 class="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Catálogo confiable para tu cuidado diario.
+            Insumos médicos, material clínico y productos para el cuidado de la salud en Chile
           </h1>
           <p class="mt-6 max-w-xl text-base leading-7 text-white/70 sm:text-lg">
             En TeraMED reunimos guantes, mascarillas, jeringas, gasas y
@@ -68,6 +105,31 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <section class="px-8 pb-8 pt-16">
+      <div class="mx-auto w-full max-w-7xl rounded-4xl border border-white/10 bg-white/5 px-6 py-8 sm:px-8 lg:px-10">
+        <div class="max-w-4xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.3em] text-[#d86f6f]">
+            ¿Por qué elegir TeraMED?
+          </p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Trabajamos con productos médicos para hospitales, clínicas, consultas particulares, centros de salud y uso
+            doméstico.
+          </h2>
+          <p class="mt-5 text-sm leading-7 text-white/70 sm:text-base">
+            Nuestro catálogo incluye insumos de alta rotación y uso diario para acompañar diferentes necesidades de
+            cuidado y abastecimiento.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3 text-sm text-white/80">
+            <span class="rounded-full border border-white/10 bg-black/20 px-4 py-2">Guantes</span>
+            <span class="rounded-full border border-white/10 bg-black/20 px-4 py-2">Mascarillas</span>
+            <span class="rounded-full border border-white/10 bg-black/20 px-4 py-2">Gasas</span>
+            <span class="rounded-full border border-white/10 bg-black/20 px-4 py-2">Jeringas</span>
+            <span class="rounded-full border border-white/10 bg-black/20 px-4 py-2">Material de curación</span>
+          </div>
+        </div>
       </div>
     </section>
 
