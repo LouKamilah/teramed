@@ -63,11 +63,12 @@ document.addEventListener("alpine:init", () => {
       if (this.busqueda.trim() !== "") {
         const b = this.busqueda.toLowerCase();
 
-        lista = lista.filter(
-          (p) =>
-            p.nombre.toLowerCase().includes(b) ||
-            p.descripcion.toLowerCase().includes(b),
-        );
+        lista = lista.filter((p) => {
+          const nombre = (p.nombre || "").toString().toLowerCase();
+          const descripcion = (p.descripcion || "").toString().toLowerCase();
+
+          return nombre.includes(b) || descripcion.includes(b);
+        });
       }
 
       switch (this.orden) {
